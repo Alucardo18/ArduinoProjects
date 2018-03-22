@@ -55,34 +55,34 @@ int BLUE_LED =9;
              String value = inputString.substring(1);
 
                  //CONTROL DE MOTORES
-               if (value.startsWith("F")){
+               if (value.startsWith("FORWARD")){
               Serial.print(value);
                adelante();
               inputString="";
               stringComplete = false;
               }
     
-              if (value.startsWith("S")){
+              if (value.startsWith("STOP")){
               Serial.print(value);
                detenido();
               inputString="";
               stringComplete = false;
               }
-                if (value.startsWith("B")){  // no puede ser B por que interfiere con el caracter del color azul "BLUE"
+                if (value.startsWith("BACKWARD")){  // no puede ser B por que interfiere con el caracter del color azul "BLUE"
               Serial.print(value);
                atras();
               inputString="";
               stringComplete = false;
               }
   
-              if (value.startsWith("R")){   // no puede ser R por que interfiere con el valor del caracter "RED"
+              if (value.startsWith("RIGHT")){   // no puede ser R por que interfiere con el valor del caracter "RED"
               Serial.print(value);
                derecha();
               inputString="";
               stringComplete = false;
               }
               
-                if (value.startsWith("L")){
+                if (value.startsWith("LEFT")){
               Serial.print(value);
                izquierda();
               inputString="";

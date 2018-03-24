@@ -205,6 +205,17 @@ int BLUE_LED =9;
               }
           }
       }
+        sensor1_Valor = analogRead(sensor1_pin);
+  sensor2_Valor = analogRead(sensor2_pin);
+  Serial.print("Distancia sensor ultrasonico: ");
+  Serial.print(ultrasonic.Ranging(CM)); // CM or INC
+  Serial.println(" cm" );
+  Serial.print("Sensor lateral_UNO: ");
+  Serial.println(sensor1_Valor);
+  Serial.print("Sensor lateral_DOS: ");
+  Serial.println(sensor2_Valor);
+  Serial.println(" ");
+  delay(1000);
     }
 
 

@@ -102,6 +102,10 @@ int sensor2_Valor = 0;
 int sensor1_pin = 0;
 int sensor2_pin = 1;
 
+String readString;
+
+
+
 void setup() {
   ///Mario coin
     tone(13,NOTE_E6,125);
@@ -138,31 +142,41 @@ int BLUE_LED =9;
 ///RGB
  if (inputString.startsWith("#")){
       String value = inputString.substring(1);
+      char ind1; // , locations
+      char ind2;
+      char ind3;
+      char ind4;
+      String redValue;
+      String greenValue;
+      String blueValue;
+   
+        ind1 = value.indexOf(',');
+        redValue = value.substring(3,ind1);
+        ind2 = value.indexOf(',', ind1+1 );
+        greenValue = value.substring(ind1+1, ind2+1);
+        ind3 = value.indexOf(',', ind2+1 );
+        blueValue = value.substring(ind2+1, ind3+1);
+        
+    //  Serial.print("redValue = ");
+     // Serial.println(redValue.toInt()); 
+     // Serial.print("greenValue = ");
+     // Serial.println(greenValue.toInt());
+     // Serial.print("blueValue = ");
+     // Serial.println(blueValue.toInt());
       
-        if (value.startsWith("R")){
-          value = value.substring(1);
-          Serial.println(value.toInt());
-          analogWrite(RED_LED,value.toInt());
-          inputString="";
+      analogWrite(RED_LED,redValue.toInt());
+      analogWrite(GREEN_LED,greenValue.toInt());
+      analogWrite(BLUE_LED,blueValue.toInt());
+      
+ 
+      
+      
+       inputString="";
           stringComplete = false;
-          } 
-          
-        if (value.startsWith("G")){
-          value = value.substring(1);
-          Serial.println(value.toInt());
-          analogWrite(GREEN_LED,value.toInt());
-          inputString="";
-          stringComplete = false;
-          }
-          
-        if (value.startsWith("B")){
-          value = value.substring(1);
-          Serial.println(value.toInt());
-          analogWrite(BLUE_LED,value.toInt());
-          inputString="";
-          stringComplete = false;
-          }
-
+    
+       
+      
+ 
            
         }
 
@@ -205,17 +219,7 @@ int BLUE_LED =9;
               }
           }
       }
-        sensor1_Valor = analogRead(sensor1_pin);
-  sensor2_Valor = analogRead(sensor2_pin);
-  Serial.print("Distancia sensor ultrasonico: ");
-  Serial.print(ultrasonic.Ranging(CM)); // CM or INC
-  Serial.println(" cm" );
-  Serial.print("Sensor lateral_UNO: ");
-  Serial.println(sensor1_Valor);
-  Serial.print("Sensor lateral_DOS: ");
-  Serial.println(sensor2_Valor);
-  Serial.println(" ");
-  delay(1000);
+
     }
 
 

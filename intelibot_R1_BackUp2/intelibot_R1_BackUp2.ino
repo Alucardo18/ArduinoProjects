@@ -111,25 +111,25 @@ int BLUE_LED =9;
               
 //////////////////////////////
                   ///MODOS AUTONOMOS
-                   while (value.startsWith("BATTLE")){
-                   
-           
-                inputString="";
-               if (ultrasonic.Ranging(CM) <= 10){
-                r2d2Tone();
-                  //  value = "RANGER"; // YA PARSEA EL PRIMER DIGITO
-                   Serial.print(value);
-                   delay (200);
-                
-              } 
-              
-      
+               if (value.startsWith("BATTLE")){
+              Serial.print(value);
+              stormsTone();
+              autonomous = true;
+                while (autonomous){
+                 battleMode();
+                        if (Serial.available() > 0){ // DETIENE EL LOOP 
+                            detenido ();
+                          autonomous = false; 
+                          break;
+                        }
+              inputString="";
+              stringComplete = false;
+                  }
               }
               //RANGER
                if (value.startsWith("RANGER")){
               Serial.print(value);
               r2d2Tone ();
-             
               autonomous = true;
                 while (autonomous){
                  rangerMode();
@@ -146,6 +146,7 @@ int BLUE_LED =9;
               inputString="";
               stringComplete = false;
               }
+              //
                if (value.startsWith("HONK")){
               Serial.print(value);
               mentada ();
@@ -205,12 +206,7 @@ void adelante (){
  
   //MODOS AUTONOMOS
   
-  void battleMode(){
-    if (ultrasonic.Ranging(CM) <= 10){
-      
-    r2d2Tone();
-    }
-  }
+
   
   void rangerMode (){
 sensor1_Valor = analogRead(sensor1_pin);
@@ -221,13 +217,30 @@ sensor2_Valor = analogRead(sensor2_pin);
       atras();
       delay(200);
       }
-      if (sensor1_Valor >= 650){
+      if (sensor1_Valor >= 550){
       izquierda ();
       delay(500);
       }
-        if (sensor2_Valor >= 900){
+        if (sensor2_Valor >= 800){
       derecha ();
       delay(500);
       }
+  }
+  
+  void battleMode (){
+  sensor1_Valor = analogRead (sensor1_pin);
+  sensor2_Valor = analogRead (sensor2_pin);
+      
+     derecha();
+     if (ultrasonic.Ranging(CM) <= 10){
+       adelante();
+     }
+     if (sensor1_Valor >= 550){
+     derecha ();
+     }
+     if (sensor2_Valor >= 800){
+     izquierda ();
+     }
+    
   }
   

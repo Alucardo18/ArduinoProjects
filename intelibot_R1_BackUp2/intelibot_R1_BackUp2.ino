@@ -36,6 +36,19 @@ int RED_LED =11;
 int GREEN_LED = 10;
 int BLUE_LED =9;
 
+/*URRENT MAPPINGS
+
+PWM RGB LED -> 
+
+9 -> BLUE
+10 -> GREEN
+11 -> RED
+NEW MAPPINGS FOR NEW RGB LED
+9 -> GREEN
+10 -> RED
+11 -> BLUE
+*/
+
   if (stringComplete){
 
 ///RGB
@@ -228,18 +241,23 @@ sensor2_Valor = analogRead(sensor2_pin);
   }
   
   void battleMode (){
-  sensor1_Valor = analogRead (sensor1_pin);
-  sensor2_Valor = analogRead (sensor2_pin);
+sensor1_Valor = analogRead(sensor1_pin);
+sensor2_Valor = analogRead(sensor2_pin);
       
-     derecha();
-     if (ultrasonic.Ranging(CM) <= 10){
+  
+     if (ultrasonic.Ranging(CM) <= 20){
        adelante();
      }
-     if (sensor1_Valor >= 550){
+     if (sensor1_Valor >= 400){
      derecha ();
+     //delay(500);
      }
-     if (sensor2_Valor >= 800){
+     if (sensor2_Valor >= 700){
      izquierda ();
+     //delay(500);
+     }
+     else if (ultrasonic.Ranging(CM) > 20){
+     detenido();
      }
     
   }
